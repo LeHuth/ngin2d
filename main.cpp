@@ -1,20 +1,7 @@
-#include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#include <glm/glm.hpp>
-#include <imgui/imgui.h>
-#include <sol/sol.hpp>
+#include "src/Game.h"
 
 int main(int argc, char* argv[]) {
-    glm::vec2 velocity(1.0f, 1.0f);
-
-    sol::state lua;
-    lua.open_libraries(sol::lib::base, sol::lib::package);
-
-    std::cout << "Hello, World!" << std::endl;
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Quit();
+    Game game;
+    game.run();
     return 0;
 }
