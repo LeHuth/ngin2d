@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Game.h"
 #include <SDL.h>
+#include <SDL_image.h>
 
 Game::Game() {
     std::cout << "Game constructor called" << std::endl;
@@ -69,10 +70,15 @@ void Game::render(){
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
-    // render stuff
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_Rect rect = { 10, 10, 100, 100 };
-    SDL_RenderFillRect(renderer, &rect);
+    // render PNG image
+    SDL_Surface* pSdlSurface = IMG_Load("../assets/images/cat.png");
+    SDL_Texture* pTexture = SDL_CreateTextureFromSurface(renderer, pSdlSurface);
+    SDL_FreeSurface(pSdlSurface);
+
+    SDL_Rect dstRect = { 100, 100, 32, 32 };
+
+    SDL_RenderCopy(renderer, pTexture, nullptr, &dstRect);
+    SDL_DestroyTexture(pTexture);
 
     // swap front and back buffers
     SDL_RenderPresent(renderer);
