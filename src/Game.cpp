@@ -25,6 +25,7 @@ Game::Game() {
         return;
     }
     running = true;
+    setup();
 }
 
 Game::~Game() {
@@ -63,7 +64,27 @@ void Game::handleEvents(){
     }
 }
 
+void Game::setup(){
+    position = glm::vec2(0, 0);
+    velocity = glm::vec2(1, 1);
+}
+
 void Game::update(){
+    Uint32 ticksLastFrame;
+    ticksLastFrame = SDL_GetTicks64(); // get timestamp from last frame
+    Uint32 timeToWait = FRAME_DELAY - (SDL_GetTicks() - ticksLastFrame); // calculate time to wait
+    if(timeToWait <= FRAME_DELAY) {
+        SDL_Delay(timeToWait); // delay if frame was too fast
+    }
+    
+    position.x += velocity.x;
+    position.y += velocity.y;
+    if(position.x > 800 -32 || position.x < 0) {
+        velocity.x = -velocity.x;
+    }
+    if(position.y > 600 -32 || position.y < 0) {
+        velocity.y = -velocity.y;
+    }
 }
 
 void Game::render(){
@@ -75,7 +96,7 @@ void Game::render(){
     SDL_Texture* pTexture = SDL_CreateTextureFromSurface(renderer, pSdlSurface);
     SDL_FreeSurface(pSdlSurface);
 
-    SDL_Rect dstRect = { 100, 100, 32, 32 };
+    SDL_Rect dstRect = { static_cast<int>(position.x), static_cast<int>(position.y), 32, 32 };
 
     SDL_RenderCopy(renderer, pTexture, nullptr, &dstRect);
     SDL_DestroyTexture(pTexture);
