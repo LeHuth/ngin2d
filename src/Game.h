@@ -35,6 +35,7 @@ private:
     SDL_Renderer *renderer;
     glm::vec2 position;
     glm::vec2 velocity;
+    uint32_t ticksLastFrame = 0;
 };
 
 

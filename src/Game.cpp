@@ -66,19 +66,22 @@ void Game::handleEvents(){
 
 void Game::setup(){
     position = glm::vec2(0, 0);
-    velocity = glm::vec2(1, 1);
+    velocity = glm::vec2(10, 15);
 }
 
 void Game::update(){
-    Uint32 ticksLastFrame;
-    ticksLastFrame = SDL_GetTicks64(); // get timestamp from last frame
     Uint32 timeToWait = FRAME_DELAY - (SDL_GetTicks() - ticksLastFrame); // calculate time to wait
-    if(timeToWait <= FRAME_DELAY) {
+
+    if(timeToWait > 0 && timeToWait <= FRAME_DELAY) {
         SDL_Delay(timeToWait); // delay if frame was too fast
     }
-    
-    position.x += velocity.x;
-    position.y += velocity.y;
+
+    double deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0; // convert to seconds
+    ticksLastFrame = SDL_GetTicks(); // get timestamp from last frame
+
+    position.x += static_cast<float>(velocity.x * deltaTime);
+    position.y += static_cast<float>(velocity.y * deltaTime);
+
     if(position.x > 800 -32 || position.x < 0) {
         velocity.x = -velocity.x;
     }
