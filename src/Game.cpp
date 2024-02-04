@@ -66,8 +66,15 @@ void Game::update(){
 }
 
 void Game::render(){
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
+
+    // render stuff
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_Rect rect = { 10, 10, 100, 100 };
+    SDL_RenderFillRect(renderer, &rect);
+
+    // swap front and back buffers
     SDL_RenderPresent(renderer);
 }
 
