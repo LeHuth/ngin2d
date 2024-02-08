@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include "Game.h"
+#include "Logger.h"
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -25,14 +26,16 @@ Game::Game() {
         return;
     }
     running = true;
+    Logger::log("Game constructor called");
     setup();
 }
 
 Game::~Game() {
-    std::cout << "Game destructor called" << std::endl;
+    Logger::log("Game destructor called");
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
+    Logger::log("shutdown");
 }
 
 void Game::run() {

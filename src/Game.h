@@ -7,6 +7,7 @@
 
 #include <glm/glm.hpp>
 #include <SDL.h>
+#include "Logger.h"
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;

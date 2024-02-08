@@ -9,7 +9,9 @@ link_directories(C:/Users/leona/CLionProjects/2dgameengine/libs/lua)
 add_executable(2dgameengine main.cpp
         src/Game.cpp
         src/Game.h
-        src/Game.h)
+        src/Game.h
+        src/Logger.cpp
+        src/Logger.h)
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2_image SDL2 lua)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
